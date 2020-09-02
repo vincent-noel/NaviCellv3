@@ -39,6 +39,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import fr.curie.cd2sbgnml.Cd2SbgnmlScript;
 
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
 @EnableConfigurationProperties(StorageProperties.class)
@@ -117,6 +118,9 @@ public class NaviCellMapController {
     @RequestParam("image-file") MultipartFile image_file
   ) {
     
+    
+    
+    
     NaviCellMap entry = new NaviCellMap(this.storageService);
     
     String initials = "";
@@ -127,10 +131,26 @@ public class NaviCellMapController {
     Path network_path = storageService.store(network_file, entry.folder, initials + "_master.xml");
     Path image_path = storageService.store(image_file, entry.folder, null);
 
+    
+    // Creating SBGN-ML file
+    
+    Cd2SbgnmlScript.convert(network_path.toString(), "temp_sbgnml.xml");
+    Path sbgnml_path = storageService.store(new File("temp_sbgnml.xml"), entry.folder, initials + "_sbgnml.xml");
+    
+    try {
+      Files.delete(Paths.get("temp_sbgnml.xml"));
+    }
+    catch (IOException e) {
+      System.out.println("File cannot be deleted : " + e);
+    }
+
+    
+    
     entry.name = name;
     entry.networkPath = network_path.toString();
     entry.imagePath = image_path.toString();
-    
+    entry.sbgnPath = sbgnml_path.toString();
+
     try {
       String path = FilenameUtils.getPath(entry.imagePath);
       String ext = FilenameUtils.getExtension(entry.imagePath);

@@ -19,6 +19,7 @@ public class NaviCellMap {
   public String folder;
   public String name;
   public String networkPath;
+  public String sbgnPath;
   public String imagePath;
   public String url;
   // public String configPath;
@@ -58,8 +59,8 @@ public class NaviCellMap {
   @Override
   public String toString() {
     return String.format(
-        "{'id': '%s', 'folder': '%s', 'name': '%s', 'network_path': '%s', 'image_path': '%s'}",
-        id, folder, name, networkPath, imagePath);
+        "{'id': '%s', 'folder': '%s', 'name': '%s', 'network_path': '%s', 'sbgn_path': '%s', 'image_path': '%s'}",
+        id, folder, name, networkPath, sbgnPath, imagePath);
   }
 
 }

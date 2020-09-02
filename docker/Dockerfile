@@ -39,6 +39,30 @@ RUN mvn install:install-file \
    -Dpackaging=jar \
    -DgeneratePom=true
    
+RUN mvn install:install-file \
+   -Dfile=./lib/cd2sbgnml-0.4.5.jar \
+   -DgroupId=fr.curie \
+   -DartifactId=cd2sbgnml \
+   -Dversion=0.4.5 \
+   -Dpackaging=jar \
+   -DgeneratePom=true
+
+RUN mvn install:install-file \
+   -Dfile=./lib/sbfc-1.3.7.jar \
+   -DgroupId=org.sbfc \
+   -DartifactId=converter \
+   -Dversion=1.3.7 \
+   -Dpackaging=jar \
+   -DgeneratePom=true
+   
+RUN mvn install:install-file \
+   -Dfile=./lib/org.sbgn.jar \
+   -DgroupId=org.sbgn \
+   -DartifactId=org.sbgn \
+   -Dversion=0.2 \
+   -Dpackaging=jar \
+   -DgeneratePom=true
+   
 RUN rm -r /var/www/html && ln -s /var/navicell/navicell /var/www/html
 RUN a2enmod php7.3
 
