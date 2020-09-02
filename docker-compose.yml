@@ -50,12 +50,25 @@ services:
     
     depends_on:
       - navicell-db
+      - newt-converter
   
   cd2sbgnml:
     build:
       context: ./
       dockerfile: docker/Dockerfile
       target: cd2sbgnml
+
+  newt-converter:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile
+      target: newt-converter
+    container_name: newt-converter
+    restart: always
+  
+    ports: 
+      - "8081:80"
+      
       
 volumes:
   db:

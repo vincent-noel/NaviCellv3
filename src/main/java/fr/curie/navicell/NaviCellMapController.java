@@ -137,14 +137,15 @@ public class NaviCellMapController {
     Cd2SbgnmlScript.convert(network_path.toString(), "temp_sbgnml.xml");
     Path sbgnml_path = storageService.store(new File("temp_sbgnml.xml"), entry.folder, initials + "_sbgnml.xml");
     
+    // Creating the PNG rendered file
+    SBGNRenderer.render(sbgnml_path.toString(), "magic.png");
+    
     try {
       Files.delete(Paths.get("temp_sbgnml.xml"));
     }
     catch (IOException e) {
       System.out.println("File cannot be deleted : " + e);
     }
-
-    
     
     entry.name = name;
     entry.networkPath = network_path.toString();
