@@ -76,10 +76,6 @@
               <td><input type="file" id="map-network" /></td>
             </tr>
             <tr>
-              <td>Image file:</td>
-              <td><input type="file" id="map-image" /></td>
-            </tr>
-            <tr>
               <td></td>
               <td><button class="button" id="map-create-button">Create map</button></td>
             </tr>
@@ -112,15 +108,11 @@
           } else if(document.querySelector("#map-network").files.length == 0) {
             throw new Error('No network file selected');
             
-          } else if (document.querySelector("#map-image").files.length == 0) {
-            throw new Error('No image file selected');
-            
           } else {
             // formdata
             let data = new FormData();
             data.append('name', document.querySelector("#map-name").value);
             data.append('network-file', document.querySelector("#map-network").files[0]);
-            data.append('image-file', document.querySelector("#map-image").files[0]);
             
             // send fetch along with cookies
             let response = await fetch('http://localhost:8080/api/maps/', {

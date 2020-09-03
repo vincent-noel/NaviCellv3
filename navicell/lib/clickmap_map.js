@@ -473,6 +473,7 @@ function start_map(map_name, map_elementId, min_zoom, max_zoom, tile_width, tile
 		// EV: 2018-08-26
 		//center : {lat: 0, lng: 0},
 		// EV: 2018-08-26
+		backgroundColor: '',
 		streetViewControl: false,
 		disableDefaultUI: true,
 		zoomControl: true,
@@ -533,7 +534,8 @@ function start_map(map_name, map_elementId, min_zoom, max_zoom, tile_width, tile
 			},
 			tileSize : new google.maps.Size(tile_width, tile_height),
 			maxZoom : max_zoom,
-			minZoom : min_zoom
+			minZoom : min_zoom,
+			// backgroundColor: "#ffffff"
 		});
 	
 		map_type.projection = projection;

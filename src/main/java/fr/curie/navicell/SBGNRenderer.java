@@ -1,11 +1,14 @@
 package fr.curie.navicell;
 
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 //import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import java.io.File;
+import java.io.IOException;
 
 public class SBGNRenderer {
     
@@ -13,7 +16,7 @@ public class SBGNRenderer {
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         // chromePrefs.put("webdriver.chrome.driver", "/usr/bin/chromedriver");
         // chromePrefs.put("profile.default_content_settings.popups", 0);
-        // chromePrefs.put("download.default_directory", System.getProperty("user.dir"));
+        chromePrefs.put("download.default_directory", System.getProperty("user.dir"));
         
         // System.setProperty("webdriver.chrome.logfile", "D:\\chromedriver.log");
         // chromePrefs.put("webdriver.chrome.verboseLogging", "true");
@@ -37,9 +40,19 @@ public class SBGNRenderer {
 
         options.setExperimentalOption("prefs", chromePrefs);
         WebDriver driver = new ChromeDriver(options);
+        System.out.println("http://navicell-dev:8080/" + input);
+        driver.get("http://newt-converter?url=http://navicell-dev:8080/" + input);
         
-        driver.get("http://newt-converter?url=http://navicell-dev:8080/13e14e06-106d-4268-9457-4fc0514c7032/n_sbgnml.xml");
-        System.out.println(driver.getTitle());
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        }
+        catch (InterruptedException e) {
+            
+        }
+        File output_file = new File(output);
+        boolean res = new File("truc.png").renameTo(output_file);
+        System.out.println("Renamed ? " + res);
+        
     }
     
 }
